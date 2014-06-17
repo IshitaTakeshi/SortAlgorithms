@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "io.h"
 #include "basic.h"
 
 void expand(char data[CHAR_SIZE], 
@@ -24,7 +23,7 @@ void expand(char data[CHAR_SIZE],
 } 
 
 void compress(char data[CHAR_SIZE], 
-            char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
+              char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
     char buffer[PATTERN_SIZE*PATTERN_SIZE];
     int i, j, x, y;
     
@@ -368,56 +367,3 @@ void clear_data(char data[CHAR_SIZE]) {
     }
 }
 
-void test(char data[CHAR_SIZE]) {
-          char pattern[PATTERN_SIZE][PATTERN_SIZE];
-    show_char(data);
-    expand(data, pattern);
-    clear_data(data);
-    //label(pattern);
-    //noise(pattern, NOISE_THRESHOLD);
-    //show_labeled_pattern(pattern);
-    normalize(pattern);
-    show_pattern(pattern);
-    outline(pattern);
-    //smooth(pattern); 
-    //label(pattern);
-    //show_labeled_pattern(pattern);
-    //noise(pattern, NOISE_THRESHOLD);
-    //clear_pattern(pattern);
-    //show_char(data);
-}
-
-int main(int argc, char *argv[]) {
-    int filesize_byte;
-    char *filename;
-    char *chars_buffer;
-    char user_input;
-    unsigned char data[CHAR_SIZE];
-    FILE *file; 
-    
-    if(argc < 2) {
-        printf("Specify the file name as an argument.\n");
-        exit(0);
-    }
-    
-    
-
-    file = fopen(argv[1], "r");
-    check_file_is_opened(file);
-    while(fread(data, CHAR_SIZE, 1, file) != EOF) { 
-        test(data);
-        printf("Type '0' to exit\n");
-        printf("Or press another key to read more\n");
-        scanf("%c", &user_input);
-        if(user_input == '0') {
-            exit(0);
-        }
-    }
-    
-    fclose(file);
-    //filesize_byte = get_num_bytes(argv[1]);
-    //printf("file size:%d\n", filesize_byte);
-    //chars_buffer = (char *)malloc(filesize_byte);
-    //read_chars(argv[1], filesize_byte, chars_buffer);
-    return 0;
-}
