@@ -1,0 +1,3 @@
+#define PATTERN_SIZE 64
+#define CHAR_SIZE 512
+#define NOISE_THRESHOLD 10
