@@ -6,22 +6,23 @@
 #include "preprocessing.h"
 
 void test(char data[CHAR_SIZE]) {
-          char pattern[PATTERN_SIZE][PATTERN_SIZE];
-    show_char(data);
+    char pattern[PATTERN_SIZE][PATTERN_SIZE];
+
     expand(data, pattern);
     clear_data(data);
     //label(pattern);
     //noise(pattern, NOISE_THRESHOLD);
     //show_labeled_pattern(pattern);
+    noise(pattern, NOISE_THRESHOLD);
+    show_pattern(pattern);
     normalize(pattern);
     show_pattern(pattern);
     outline(pattern);
     //smooth(pattern); 
     //label(pattern);
     //show_labeled_pattern(pattern);
-    //noise(pattern, NOISE_THRESHOLD);
     //clear_pattern(pattern);
-    //show_char(data);
+    //show_pattern(pattern);
 }
 
 void test_multiple(char *filename) {
@@ -31,7 +32,7 @@ void test_multiple(char *filename) {
 
     file = fopen(filename, "r");
     check_file_is_opened(file);
-    
+
     while(fread(data, CHAR_SIZE, 1, file) != EOF) { 
         test(data);
         printf("Type '0' to exit\n");
@@ -41,17 +42,17 @@ void test_multiple(char *filename) {
             exit(0);
         }
     }
-    
+
     fclose(file);
 }
 
 int main(int argc, char *argv[]) {
-    
+
     if(argc < 2) {
         printf("Specify the file name as an argument.\n");
         exit(0);
     }
-    
+
     test_multiple(argv[1]); 
     return 0;
 }

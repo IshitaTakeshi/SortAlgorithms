@@ -3,11 +3,11 @@
 #include "basic.h"
 
 void expand(char data[CHAR_SIZE], 
-            char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
+        char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
     int i, j, x, y, dot, count;
     char c;
     char buffer[PATTERN_SIZE*PATTERN_SIZE];
-    
+
     for(i=0; i<PATTERN_SIZE*PATTERN_SIZE; i++) {
         c = data[i/8]; 
         j = 7-i%8;
@@ -23,16 +23,16 @@ void expand(char data[CHAR_SIZE],
 } 
 
 void compress(char data[CHAR_SIZE], 
-              char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
+        char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
     char buffer[PATTERN_SIZE*PATTERN_SIZE];
     int i, j, x, y;
-    
+
     for(y=0; y<PATTERN_SIZE; y++) {
         for(x=0; x<PATTERN_SIZE; x++) {
             buffer[y*PATTERN_SIZE+x] = pattern[y][x]; 
         }
     }
-    
+
     for(i=0; i<PATTERN_SIZE*PATTERN_SIZE; i++) {
         j = 7-i%8; 
         data[i/8] |= buffer[i] << j;
@@ -69,11 +69,11 @@ void outline(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
 
 
 void smooth_square(char pattern[PATTERN_SIZE][PATTERN_SIZE],  int x, int y, 
-                   int matched_pattern[], int replaced_pattern[], 
-                   int square_size) {
+        int matched_pattern[], int replaced_pattern[], 
+        int square_size) {
     int px, py;
     int matched = 1;
-    
+
     //the region pattern[y:y+square_size, x:x+square_size] is equal to 
     //matched_pattern
     for(py=0; py<square_size; py++) {
@@ -94,9 +94,9 @@ void smooth_square(char pattern[PATTERN_SIZE][PATTERN_SIZE],  int x, int y,
 //C is ugly so I made this
 //FIX the name `pattern` is confusing 
 void reinit_pattern(int p[], 
-                    int e0, int e1, int e2, 
-                    int e3, int e4, int e5, 
-                    int e6, int e7, int e8) {
+        int e0, int e1, int e2, 
+        int e3, int e4, int e5, 
+        int e6, int e7, int e8) {
     p[0] = e0;
     p[1] = e1;
     p[2] = e2;
@@ -126,93 +126,93 @@ void smooth(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
     for(y=0; y<PATTERN_SIZE-square_size; y++) {
         for(x=0; x<PATTERN_SIZE-square_size; x++) {
             reinit_pattern(matched_pattern, 
-                0, 1, 0, 
-                1, 1, 1, 
-                1, 1, 1
-                );
+                    0, 1, 0, 
+                    1, 1, 1, 
+                    1, 1, 1
+                    );
             reinit_pattern(replaced_pattern, 
-                0, 0, 0, 
-                1, 1, 1, 
-                1, 1, 1
-                );
+                    0, 0, 0, 
+                    1, 1, 1, 
+                    1, 1, 1
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
+                    square_size);
             reinit_pattern(matched_pattern, 
-                1, 1, 0, 
-                1, 1, 1, 
-                1, 1, 0
-                );
+                    1, 1, 0, 
+                    1, 1, 1, 
+                    1, 1, 0
+                    );
             reinit_pattern(replaced_pattern, 
-                1, 1, 0, 
-                1, 1, 0, 
-                1, 1, 0
-                );
+                    1, 1, 0, 
+                    1, 1, 0, 
+                    1, 1, 0
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
-            reinit_pattern(matched_pattern, 
-                1, 1, 1, 
-                1, 1, 1, 
-                0, 1, 0
-                );
-            reinit_pattern(replaced_pattern, 
-                1, 1, 1, 
-                1, 1, 1,
-                0, 0, 0
-                );
-            smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
-            reinit_pattern(matched_pattern, 
-                0, 1, 1, 
-                1, 1, 1, 
-                0, 1, 1
-                );
-            reinit_pattern(replaced_pattern, 
-                0, 1, 1, 
-                0, 1, 1, 
-                0, 1, 1
-                );
-            smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
-            reinit_pattern(replaced_pattern, 
-                1, 1, 1, 
-                1, 1, 1, 
-                1, 1, 1
-                );
+                    square_size);
 
             reinit_pattern(matched_pattern, 
-                1, 0, 1, 
-                1, 1, 1, 
-                1, 1, 1
-                );
+                    1, 1, 1, 
+                    1, 1, 1, 
+                    0, 1, 0
+                    );
+            reinit_pattern(replaced_pattern, 
+                    1, 1, 1, 
+                    1, 1, 1,
+                    0, 0, 0
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
+                    square_size);
+
             reinit_pattern(matched_pattern, 
-                1, 1, 1, 
-                1, 1, 0, 
-                1, 1, 1
-                );
+                    0, 1, 1, 
+                    1, 1, 1, 
+                    0, 1, 1
+                    );
+            reinit_pattern(replaced_pattern, 
+                    0, 1, 1, 
+                    0, 1, 1, 
+                    0, 1, 1
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
+                    square_size);
+
+            reinit_pattern(replaced_pattern, 
+                    1, 1, 1, 
+                    1, 1, 1, 
+                    1, 1, 1
+                    );
+
             reinit_pattern(matched_pattern, 
-                1, 1, 1, 
-                1, 1, 1, 
-                1, 0, 1
-                );
+                    1, 0, 1, 
+                    1, 1, 1, 
+                    1, 1, 1
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
-            
+                    square_size);
+
             reinit_pattern(matched_pattern, 
-                1, 1, 1, 
-                0, 1, 1, 
-                1, 1, 1
-                );
+                    1, 1, 1, 
+                    1, 1, 0, 
+                    1, 1, 1
+                    );
             smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
-                         square_size);
+                    square_size);
+
+            reinit_pattern(matched_pattern, 
+                    1, 1, 1, 
+                    1, 1, 1, 
+                    1, 0, 1
+                    );
+            smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
+                    square_size);
+
+            reinit_pattern(matched_pattern, 
+                    1, 1, 1, 
+                    0, 1, 1, 
+                    1, 1, 1
+                    );
+            smooth_square(pattern, x, y, matched_pattern, replaced_pattern, 
+                    square_size);
         }
     }
 }
@@ -246,7 +246,7 @@ void normalize(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
         printf("Invalid data\n");
         return;
     }
-    
+
     int px, py;
     for(y=0; y<PATTERN_SIZE; y++) {
         for(x=0; x<PATTERN_SIZE; x++) {
@@ -255,7 +255,7 @@ void normalize(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
             normalized_pattern[y][x] = pattern[py][px];
         }
     }
-    
+
     for(y=0; y<PATTERN_SIZE; y++) {
         for(x=0; x<PATTERN_SIZE; x++) {
             pattern[y][x] = normalized_pattern[y][x];
@@ -265,11 +265,11 @@ void normalize(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
 
 
 void floodfill(char pattern[PATTERN_SIZE][PATTERN_SIZE], 
-               int x, int y, int label) {
+        int x, int y, int label) {
     if(pattern[y][x] != 1) {
         return;
     }
-    
+
     pattern[y][x] = label;
     if(x > 0) { 
         floodfill(pattern, x-1, y, label); //left

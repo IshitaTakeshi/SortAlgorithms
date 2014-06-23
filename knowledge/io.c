@@ -29,7 +29,7 @@ void read_chars(char filename[], int filesize, char* chars_buffer) {
     check_file_is_opened(file);
 
     while(fread(&chars_buffer, 1, 1, file) != EOF) {};
-   
+
     fclose(file);
 }
 
@@ -40,13 +40,13 @@ void show_chars_file(char filename[]) {
 
     file = fopen(filename, "r");
     check_file_is_opened(file);
-    
+
     while(fread(data, CHAR_SIZE, 1, file) != EOF) { 
         show_char(data);
         printf("Press any key to read more\n");
         scanf("%c", &tmp);
     }
-    
+
     fclose(file);
 }
 
