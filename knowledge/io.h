@@ -1,4 +1,4 @@
-#include "basic.h"
+#include "size.h"
 
 void check_file_is_opened(FILE *file);
 int get_num_bytes(char filename[]);

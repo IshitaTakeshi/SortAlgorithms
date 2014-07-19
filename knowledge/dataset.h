@@ -12,6 +12,6 @@ typedef struct Dataset {
 
 
 typedef struct DatasetPair {
-    Dataset left, right;
+    Dataset *left;
+    Dataset *right;
 } DatasetPair;
-

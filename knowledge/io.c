@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "io.h"
-#include "basic.h"
+#include "size.h"
 
 void check_file_is_opened(FILE *file) {
     if(file == NULL) {
@@ -103,4 +103,17 @@ void show_pattern(char pattern[PATTERN_SIZE][PATTERN_SIZE]) {
         }
         printf("\n");
     }
+}
+
+int get_file_size(char filename[]) {
+    int size;
+    FILE *file; 
+    file = fopen(filename, "r");
+    check_file_is_opened(file);
+
+    fseek(file, 0L, SEEK_END);
+    size = ftell(file);
+
+    fclose(file);
+    return size;
 }

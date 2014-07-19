@@ -23,23 +23,6 @@ int* convert_character_to_vector(char *character) {
     return vector;
 }
 
-Dataset *append(Dataset *dataset, char *character, int label) {
-    Data *data; 
-    int *vector;
-
-    vector = convert_character_to_vector(character);
-    
-    data = (Data *)malloc(sizeof(Data));
-    data->label = label;
-    data->vector = vector;
-    
-    dataset->array = realloc(dataset->array, (dataset->size+1)*sizeof(&data));
-    
-    printf("data is at %p\n", data);
-    dataset->array[dataset->size] = data; 
-    dataset->size += 1;
-    return dataset;
-}
 
 Dataset *append_data_array(Dataset *dataset, char filename[], int label) {
     int size = get_file_size(filename);
@@ -47,22 +30,20 @@ Dataset *append_data_array(Dataset *dataset, char filename[], int label) {
     int i;
     char character[CHAR_SIZE];
     FILE *file;
+    Data *data; 
+    int *vector;
    
-    file = fopen(filename, "rb");
-    
+    file = fopen(filename, "rb"); 
+
     for(i=0; i<n_chars; i++) {
         fread(character, CHAR_SIZE, 1, file);
-        dataset = append(dataset, character, label);
+        vector = convert_character_to_vector(character);
+        data = init_data(label, vector); 
+        dataset = append_dataset(dataset, data);
     }
 
     fclose(file);
     return dataset;
-}
-
-Dataset *init_dataset() {
-    Dataset dataset;
-    dataset.size = 0;
-    return &dataset; 
 }
 
 Dataset *load_dataset(char *filepaths[], int labels[], int n_labels) {
@@ -77,7 +58,7 @@ Dataset *load_dataset(char *filepaths[], int labels[], int n_labels) {
     return dataset;
 }
 
-//TODO
+//TODO search how to free structures
 void free_dataset(Dataset *dataset) {
     int i;
     for(i=0; i<dataset->size; i++) {
