@@ -18,7 +18,6 @@ Dataset* init_dataset() {
     return dataset;
 }
 
-//TODO chast realloc
 Dataset *append_dataset(Dataset *dataset, Data *data) {
     dataset->array = (Data **)realloc(dataset->array, 
                                       (dataset->size+1)*sizeof(Data *));
