@@ -1,3 +1,4 @@
+#include "dataset.h"
 typedef struct Node {
     struct Node *left;
     struct Node *right;
@@ -8,6 +9,6 @@ typedef struct Node {
 } Node;
 
 
-//Node fit(int *X[], int ndim_X, int size_X, int y[], int size_y);
-//int* predict(Node tree, int *X[], int data_size);
-//void set_n_dimension(int n_dim);
+Node *fit(Dataset *dataset, int n_dim, int leaf_size);
+int *predict(Node *tree, TestDataset *test_dataset);
+int predict_once(Node *node, int *vector);

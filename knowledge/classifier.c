@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "dataset.h"
 #include "classifier.h"
 #include "dictionary.h"
 
@@ -146,7 +145,7 @@ int *append_int(int *array, int array_size, int element) {
     return array;
 }
 
-Node *construct_tree(Dataset *dataset, int n_dim) {
+Node *construct_tree(Dataset *dataset, int n_dim, int leaf_size) {
     double best_info_gain = 0;
     int best_key;
     double best_criterion;
@@ -189,39 +188,31 @@ Node *construct_tree(Dataset *dataset, int n_dim) {
     
     Node *node;
     node = (Node *)malloc(sizeof(Node));
-    int isleaf = best_info_gain <= 0;
-
-    if(!isleaf) {
-        //TODO move this to out of if statement
-
-        node->isleaf = 0;
-        node->left = construct_tree(best_dataset_pair.left, n_dim);
-        node->right = construct_tree(best_dataset_pair.right, n_dim);
-        node->key = best_key;
-        node->criterion = best_criterion;
+ 
+    if(best_info_gain <= 0 || dataset->size <= leaf_size) {
+        node->isleaf = 1;
+        node->label = find_most_common_label(*dataset);
         return node;
     }
 
-    node->isleaf = 1;
-    node->label = find_most_common_label(*dataset);
+    node->isleaf = 0;
+    node->left = construct_tree(best_dataset_pair.left, n_dim, leaf_size);
+    node->right = construct_tree(best_dataset_pair.right, n_dim, leaf_size);
+    node->key = best_key;
+    node->criterion = best_criterion;
     return node;
 }
 
-Node *fit(Dataset *dataset, int n_dim) {
-    Node *tree;
-    tree = construct_tree(dataset, n_dim);
-    return tree;
-}
+Node *fit(Dataset *dataset, int n_dim, int leaf_size) {
+    //TODO assert here
+    if(leaf_size <= 0) {
+        //error();
+    }
 
-/*
-Node *fit(int *X[], int ndim_X, int size_X, int y[], int size_y) {
-    Dataset dataset;
-    Node *tree;
-    //create dataset object here
-    tree = construct_tree(dataset, N_DIM);
+    Node *tree; 
+    tree = construct_tree(dataset, n_dim, leaf_size);
     return tree;
 }
-*/
 
 int predict_once(Node *node, int *vector) {
     if(node->isleaf) {
@@ -235,12 +226,14 @@ int predict_once(Node *node, int *vector) {
     }
 }
 
-int *predict(Node *tree, int *X[], int data_size) {
-    int results[data_size];
+int *predict(Node *tree, TestDataset *test_dataset) {
+    int *results;
     int i;
+    
+    results = (int *)malloc(test_dataset->size*sizeof(int));
 
-    for(i=0; i<data_size; i++) {
-        results[i] = predict_once(tree, X[i]);
+    for(i=0; i<test_dataset->size; i++) {
+        results[i] = predict_once(tree, test_dataset->vectors[i]);
     }
 
     return results;

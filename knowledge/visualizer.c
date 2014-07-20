@@ -3,15 +3,16 @@
 
 //TODO move to an external file
 void show_tree_(Node *node, int depth) {
+    int i; 
+    for(i=0; i<depth; i++) {
+        printf("  ");
+    }
+
     if(node->isleaf) {
+        printf("  label:%d\n", node->label);
         return;
     }
     
-    int i; 
-    for(i=0; i<depth; i++) {
-        printf(" ");
-    }
-
     printf("key:%d criterion:%d\n", node->key, node->criterion);
 
     depth += 1;
