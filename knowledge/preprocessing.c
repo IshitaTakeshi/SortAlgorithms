@@ -48,8 +48,8 @@ int abs(int n) {
 
 int differentiate(char pattern[PATTERN_SIZE][PATTERN_SIZE], char x, char y) {
     int dx, dy;
-    dx = (int)(pattern[y+1][x]-pattern[y][x]);
-    dy = (int)(pattern[y][x+1]-pattern[y][x]);
+    dy = (int)(pattern[y+1][x]-pattern[y][x]);
+    dx = (int)(pattern[y][x+1]-pattern[y][x]);
     return abs(dx)+abs(dy);
 }
 
