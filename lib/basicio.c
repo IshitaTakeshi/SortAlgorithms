@@ -1,31 +1,33 @@
 #include <stdio.h>
 #include "basicio.h"
 
+
 int get_num_lines(char filename[]) {
-    FILE *file; 
+    FILE *file;
     int nlines;
     char c;
 
     file = fopen(filename, "r");
-    
+
     nlines = 0;
     while((c=fgetc(file)) != EOF) {
         if(c == '\n') {
             nlines += 1;
         }
     }
-    
+
     fclose(file);
     return nlines;
 }
 
+
 void read_data_from_file(char filename[], int array[], int array_size) {
-    FILE *file; 
+    FILE *file;
     int nlines;
     int i;
 
     file = fopen(filename, "r");
-    
+
     for(i=0; i<array_size; i++) {
         fscanf(file, "%d", &array[i]);
     }
@@ -33,19 +35,21 @@ void read_data_from_file(char filename[], int array[], int array_size) {
     fclose(file);
 }
 
+
 void write_data_to_file(char filename[], int array[], int array_size) {
-    FILE *file; 
+    FILE *file;
     int nlines;
     int i;
 
     file = fopen(filename, "w");
-    
+
     for(i=0; i<array_size; i++) {
         fprintf(file, "%d\n", array[i]);
     }
 
     fclose(file);
 }
+
 
 void read_digits(int array[], int N) {
     int i, e;
@@ -55,6 +59,7 @@ void read_digits(int array[], int N) {
         array[i] = e;
     }
 }
+
 
 void printarray(int array[], int N) {
     int i;

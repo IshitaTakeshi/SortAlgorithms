@@ -14,9 +14,9 @@ int binarysearch_(int array[], int start, int end, int query) {
     int middle = (start+end)/2;
 
     if(array[middle] >= query) {
-        return binarysearch_(array, start, middle, query); 
+        return binarysearch_(array, start, middle, query);
     } else {
-        return binarysearch_(array, middle, end, query); 
+        return binarysearch_(array, middle, end, query);
     }
 }
 

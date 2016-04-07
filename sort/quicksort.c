@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "algorithm.h"
+#include "../lib/algorithm.h"
 #include "sortlib.h"
 
 
@@ -18,14 +18,14 @@ void quicksort(int array[], int array_size) {
             left += 1;
             continue;
         }
-        
+
         if(*right > pivot) {
             right -= 1;
             continue;
         }
-        
-        swap(left, right);    
-        
+
+        swap(left, right);
+
         left++;
         right--;
     }

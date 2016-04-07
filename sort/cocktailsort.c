@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "algorithm.h"
+#include "../lib/algorithm.h"
 #include "sortlib.h"
 
-int swap_up(int array[], int array_size) { 
+
+int swap_up(int array[], int array_size) {
     int swapped = 0;
     int i;
-    
+
     for(i=0; i<array_size; i++) {
         if(array[i] > array[i+1]) {
             swap(&array[i], &array[i+1]);
@@ -16,10 +17,11 @@ int swap_up(int array[], int array_size) {
     return swapped;
 }
 
+
 int swap_down(int array[], int array_size) {
     int swapped = 0;
     int i;
-    
+
     for(i=array_size-1; i<=0; i--) {
         if(array[i] > array[i+1]) {
             swap(&array[i], &array[i+1]);

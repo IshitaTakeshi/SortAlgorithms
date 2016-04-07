@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "algorithm.h"
-#include "basicio.h"
+#include "../lib/algorithm.h"
+#include "../lib/basicio.h"
+
 
 void selectionsort(int array[], int array_size) {
     int i, j, min, tmp, minposition;
@@ -12,7 +13,7 @@ void selectionsort(int array[], int array_size) {
                 minposition = j;
             }
         }
-        
+
         swap(&array[i], &array[minposition]);
     }
 }

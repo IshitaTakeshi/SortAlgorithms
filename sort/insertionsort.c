@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "algorithm.h"
+#include "../lib/algorithm.h"
 #include "sortlib.h"
 
 void slide_to_right(int array[], int start, int end) {
@@ -15,7 +15,7 @@ void slide_to_right(int array[], int start, int end) {
 
 void insertionsort(int array[], int array_size) {
     int i, j;
-    
+
     if(array[0] > array[1]) {
         swap(&array[0], &array[1]);
     }
