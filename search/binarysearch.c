@@ -1,25 +1,24 @@
 #include <stdio.h>
 
 
-int binarysearch_(int array[], int start, int end, int query) {
-    if(end-start == 1) {
-        if(array[end] != query) {
-            //Returns -1 if the query not found
-            return -1;
-        }
-        return end;
+int binarysearch_(int array[], int start, int end, int key) {
+    if(start > end) {
+        return -1;
     }
 
-    int middle = (start+end)/2;
+    int middle = start+(end-start)/2;
 
-    if(query <= array[middle]) {
-        return binarysearch_(array, start, middle, query);
+    printf("start: %d  middle: %d  end: %d\n", start, middle, end);
+    if(key < array[middle]) {
+        return binarysearch_(array, start, middle-1, key);
+    } else if(key > array[middle]) {
+        return binarysearch_(array, middle+1, end, key);
     } else {
-        return binarysearch_(array, middle, end, query);
+        return middle;
     }
 }
 
 
-int binarysearch(int array[], int array_size, int query) {
-    return binarysearch_(array, 0, array_size, query);
+int binarysearch(int array[], int array_size, int key) {
+    return binarysearch_(array, 0, array_size, key);
 }
