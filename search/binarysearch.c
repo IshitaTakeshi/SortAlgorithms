@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include "sortlib.h"
-#include "error.h"
+
 
 int binarysearch_(int array[], int start, int end, int query) {
     if(end-start == 1) {
@@ -13,12 +12,13 @@ int binarysearch_(int array[], int start, int end, int query) {
 
     int middle = (start+end)/2;
 
-    if(array[middle] >= query) {
+    if(query <= array[middle]) {
         return binarysearch_(array, start, middle, query);
     } else {
         return binarysearch_(array, middle, end, query);
     }
 }
+
 
 int binarysearch(int array[], int array_size, int query) {
     return binarysearch_(array, 0, array_size, query);
