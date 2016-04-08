@@ -24,7 +24,6 @@ void test(void (*f)(int [], int), char *algorithm_name) {
     };
 
     int array_size = sizeof(array)/sizeof(int);
-    printf("array_size: %d\n", array_size);
 
     printf("%s\n", algorithm_name);
     printf("Input:\t");
@@ -44,13 +43,13 @@ void test(void (*f)(int [], int), char *algorithm_name) {
 
 
 int main(int argc, char *argv[]) {
-    test(bubblesort, "bubblesort");
-    test(heapsort, "heapsort");
-    test(insertionsort, "insertionsort");
-    test(mergesort, "mergesort");
-    test(selectionsort, "selectionsort");
-    test(shellsort, "shellsort");
-    test(quicksort, "quicksort");
+    test(bubblesort, "Bubblesort");
+    test(heapsort, "Heapsort");
+    test(insertionsort, "Insertionsort");
+    test(mergesort, "Mergesort");
+    test(selectionsort, "Selectionsort");
+    test(shellsort, "Shellsort");
+    test(quicksort, "Quicksort");
 
     return 0;
 }
