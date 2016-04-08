@@ -6,7 +6,7 @@
 
 void test(int array[], int array_size, int key, int expected) {
     int index = binarysearch(array, array_size, key);
-    printf("index: %d  expected: %d\n", index, expected);
+    printf("index: % d  expected: % d\n", index, expected);
     if(index != expected) {
         error("Unexpected index. Test failed.\n");
     }

@@ -8,7 +8,6 @@ int binarysearch_(int array[], int start, int end, int key) {
 
     int middle = start+(end-start)/2;
 
-    printf("start: %d  middle: %d  end: %d\n", start, middle, end);
     if(key < array[middle]) {
         return binarysearch_(array, start, middle-1, key);
     } else if(key > array[middle]) {
