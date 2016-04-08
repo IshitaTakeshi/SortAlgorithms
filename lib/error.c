@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void message(char message[]) {
-    printf("%s", message);
+
+void error(char message[]) {
+    fprintf(stderr, "%s", message);
+    exit(-1);
 }

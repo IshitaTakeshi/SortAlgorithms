@@ -1,1 +1,1 @@
-void message(char message[]);
+void error(char message[]);
